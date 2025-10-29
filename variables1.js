@@ -3,6 +3,9 @@ var answer;
 const questionAmount = 5;
 const answerAmount = 4;
 
+//graphics
+var blueCircle = "./data/bluecircle100.png";
+var blackCircle = "./data/blackcircle100.png";
 
 const submitButton = document.getElementById('submit');
 const quizContainer = document.getElementById('quiz');
@@ -19,13 +22,26 @@ function getRandom (n, upperBound) {
     return randomNumbers;
 }
 
+function getRandom (n, upperBound, avoidNum) {
+    let randomNumbers = [];
+    while (randomNumbers.length < n) {
+        let rand = (Math.floor(Math.random() * (upperBound-1)));
+        if (!randomNumbers.includes(rand) && rand!=avoidNum){
+            randomNumbers.push(rand);
+        }
+    }
+    return randomNumbers;
+}
+
 function setQuestion() {
     const num1 = Math.floor(Math.random() * 10);
     const num2 = Math.floor(Math.random() * 10);
     const correctAnswerNum = Math.floor(Math.random() * (answerAmount-1));
-    var optionArray = getRandom(answerAmount, 10);
     answer = num2-num1;
+    var optionArray = getRandom(answerAmount, 10, answer);
     document.getElementById('PROBLEM_TEXT').innerText = num1 + "+x=" + num2;
+    const optionContainer = document.createElement("div");
+    optionContainer.id = "optionContainer";
     for (let i = 0; i < answerAmount; i++) {
         const optionLabel = document.createElement("label");
         const option = document.createElement("input");
@@ -39,8 +55,9 @@ function setQuestion() {
             optionLabel.textContent = answer;    
             option.value = answer;
         }
-        quizContainer.appendChild(option);
-        quizContainer.appendChild(optionLabel);
+        optionContainer.appendChild(option);
+        optionContainer.appendChild(optionLabel);
+        quizContainer.appendChild(optionContainer);
     }
 
 }
@@ -48,30 +65,40 @@ function setQuestion() {
 function checkAnswer() {
     const userAnswer = document.querySelector('input[name="q"]:checked').value;
     if (userAnswer != answer){
-        document.getElementById('PROBLEM_TEXT').innerText = "I hate you. Forever. " + score;
+        //document.getElementById('PROBLEM_TEXT').innerText = "I hate you. Forever. " + score;
     }
     else {
-        document.getElementById('PROBLEM_TEXT').innerText = "Thank you, Ted. " + score;
+        //document.getElementById('PROBLEM_TEXT').innerText = "Thank you, Ted. " + score;
         score++;
+        document.getElementById('optionContainer').remove();
+        updateCircles(score);
+        setQuestion();
+    }
+}
+
+//update circles to show n filled in circles
+function updateCircles(n) {
+    if (document.getElementById('circleContainer') != null) {
+        document.getElementById('circleContainer').remove();
+    }
+    const circleContainerOriginal = document.getElementById("circles");
+    const circleContainer = document.createElement("div");
+    circleContainer.id = "circleContainer";
+    for (let i = 0; i < questionAmount; i++) {
+        if (i < n) {
+            const circleData = document.createElement("td");
+            circleData.innerHTML = "<img id=\"c1\" src=" + blueCircle + "></img>";
+            circleContainer.appendChild(circleData);
+            circleContainerOriginal.appendChild(circleContainer);
+        }
+        else {
+            const circleData = document.createElement("td");
+            circleData.innerHTML = "<img id=\"c1\" src=" + blackCircle + "></img>";
+            circleContainer.appendChild(circleData);
+            circleContainerOriginal.appendChild(circleContainer);
+        }
     }
 }
 
 setQuestion()
-
-/*
-function results(){
-    function showResults(quizContainer) {
-        let userAnswer = (quizContainer.querySelector("input[name='q']:checked")||{}).value;
-        if (userAnswer == num2-num1) {
-            document.getElementById('PROBLEM_TEXT').innerText = userAnswer; 
-        }
-        else {
-            document.getElementById('PROBLEM_TEXT').innerText = userAnswer; 
-        }
-    }
-
-    submitButton.onclick = function() {
-        showResults(quizContainer);
-    }
-}
-*/
+updateCircles(0);
