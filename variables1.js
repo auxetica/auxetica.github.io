@@ -17,7 +17,7 @@ const resultsContainer = document.getElementById('results');
 function getRandom (n, upperBound) {
     let randomNumbers = [];
     while (randomNumbers.length < n) {
-        let rand = (Math.floor(Math.random() * (upperBound-1)));
+        let rand = (Math.floor(Math.random() * (upperBound-1))) * Math.floor(Math.random() - 0.5);
         if (!randomNumbers.includes(rand)){
             randomNumbers.push(rand);
         }
@@ -28,7 +28,7 @@ function getRandom (n, upperBound) {
 function getRandom (n, upperBound, avoidNum) {
     let randomNumbers = [];
     while (randomNumbers.length < n) {
-        let rand = (Math.floor(Math.random() * (upperBound-1)));
+        let rand = (Math.floor(Math.random() * (upperBound-1))) * Math.floor(Math.random() - 0.5);
         if (!randomNumbers.includes(rand) && rand!=avoidNum){
             randomNumbers.push(rand);
         }
@@ -44,6 +44,8 @@ function setQuestion() {
     var optionArray = getRandom(answerAmount, 10, answer);
     document.getElementById('PROBLEM_TEXT').innerText = num1 + "+x=" + num2;
     const optionContainer = document.createElement("div");
+    const optionRow1 = document.createElement("div");
+    const optionRow2 = document.createElement("div");
     optionContainer.id = "optionContainer";
     for (let i = 0; i < answerAmount; i++) {
         const optionLabel = document.createElement("label");
@@ -58,8 +60,17 @@ function setQuestion() {
             optionLabel.textContent = answer;    
             option.value = answer;
         }
-        optionContainer.appendChild(option);
-        optionContainer.appendChild(optionLabel);
+
+        if (i < 2) {
+            optionRow1.appendChild(option);
+            optionRow1.appendChild(optionLabel);
+        }
+        else {
+            optionRow2.appendChild(option);
+            optionRow2.appendChild(optionLabel);        
+        }
+        optionContainer.appendChild(optionRow1);
+        optionContainer.appendChild(optionRow2);
         quizContainer.appendChild(optionContainer);
     }
 
