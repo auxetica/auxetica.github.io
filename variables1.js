@@ -82,7 +82,7 @@ function checkAnswer() {
     resultsText.id = "resultsText";
     if (document.getElementById("resultsText") != null) {document.getElementById("resultsText").remove();}
 
-    if (userAnswer != answer){
+    if (userAnswer != answer && score != questionAmount){
         //document.getElementById('PROBLEM_TEXT').innerText = "I hate you. Forever. " + score;
         resultsText.innerText = "Not quite. Try again!";
         if (score > 0){

@@ -73,9 +73,26 @@ button {
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 20px;
   cursor: pointer;
+  box-shadow: 0px 10px 0px black;
 }
 
 button:hover {
     background-color: #ed9818;
-    
+    box-shadow: 0px 5px 0px black;
+}
+
+button:active {
+    box-shadow: inset 0px 0px 0px;
+}
+
+.cover {
+    width: 300px;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    display:block;
+    padding: 0px;
+    border: 3px solid black;
+    border-radius: 10px;
 }
