@@ -113,20 +113,25 @@ function updateCircles(n) {
     const circleContainerOriginal = document.getElementById("circles");
     const circleContainer = document.createElement("div");
     circleContainer.id = "circleContainer";
+    var circleTable = document.createElement("table");
+    var circleTr = document.createElement("tr");
     for (let i = 0; i < questionAmount; i++) {
         if (i < n) {
             const circleData = document.createElement("td");
-            circleData.innerHTML = "<img id=\"c1\" src=" + blueCircle + "></img>";
-            circleContainer.appendChild(circleData);
-            circleContainerOriginal.appendChild(circleContainer);
+            circleData.innerHTML = "<img class=\"c\" id=\"c\" src=" + blueCircle + "></img>";
+            circleTr.appendChild(circleData);
+            //circleContainerOriginal.appendChild(circleContainer);
         }
         else {
             const circleData = document.createElement("td");
-            circleData.innerHTML = "<img id=\"c1\" src=" + blackCircle + "></img>";
-            circleContainer.appendChild(circleData);
-            circleContainerOriginal.appendChild(circleContainer);
+            circleData.innerHTML = "<img class=\"c\" id=\"c\" src=" + blackCircle + "></img>";
+            circleTr.appendChild(circleData);
+            //circleContainerOriginal.appendChild(circleContainer);
         }
     }
+    circleTable.appendChild(circleTr);
+    circleContainer.appendChild(circleTable);
+    circleContainerOriginal.appendChild(circleContainer);
 }
 
 
