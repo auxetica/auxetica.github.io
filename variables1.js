@@ -1,4 +1,5 @@
 var score = 0;
+var answer;
 const questionAmount = 5;
 const answerAmount = 4;
 
@@ -23,7 +24,7 @@ function setQuestion() {
     const num2 = Math.floor(Math.random() * 10);
     const correctAnswerNum = Math.floor(Math.random() * (answerAmount-1));
     var optionArray = getRandom(answerAmount, 10);
-    var answer = num2-num1;
+    answer = num2-num1;
     document.getElementById('PROBLEM_TEXT').innerText = num1 + "+x=" + num2;
     for (let i = 0; i < answerAmount; i++) {
         const optionLabel = document.createElement("label");
@@ -45,8 +46,14 @@ function setQuestion() {
 }
 
 function checkAnswer() {
-    const userAnswer = document.querySelector('input[name="q"]:checked');
-    document.getElementById('PROBLEM_TEXT').innerText = userAnswer.value;
+    const userAnswer = document.querySelector('input[name="q"]:checked').value;
+    if (userAnswer != answer){
+        document.getElementById('PROBLEM_TEXT').innerText = "I hate you. Forever. " + score;
+    }
+    else {
+        document.getElementById('PROBLEM_TEXT').innerText = "Thank you, Ted. " + score;
+        score++;
+    }
 }
 
 setQuestion()
