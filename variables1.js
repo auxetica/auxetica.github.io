@@ -1,7 +1,9 @@
+//basic variables
 var score = 0;
 var answer;
 const questionAmount = 5;
 const answerAmount = 4;
+const topic = "var1";
 
 //graphics
 var blueCircle = "./data/bluecircle100.png";
@@ -9,6 +11,7 @@ var blackCircle = "./data/blackcircle100.png";
 
 const submitButton = document.getElementById('submit');
 const quizContainer = document.getElementById('quiz');
+const resultsContainer = document.getElementById('results');
 
 //returns array of random numbers from [0, upperBound] with length n
 function getRandom (n, upperBound) {
@@ -64,16 +67,42 @@ function setQuestion() {
 
 function checkAnswer() {
     const userAnswer = document.querySelector('input[name="q"]:checked').value;
+    let resultsText = document.createElement("p");
+    resultsText.id = "resultsText";
+    if (document.getElementById("resultsText") != null) {document.getElementById("resultsText").remove();}
+
     if (userAnswer != answer){
         //document.getElementById('PROBLEM_TEXT').innerText = "I hate you. Forever. " + score;
+        resultsText.innerText = "Not quite. Try again!";
+        if (score > 0){
+            score--;
+        }
+        updateCircles(score);
     }
-    else {
+    else if (userAnswer == answer && score < questionAmount - 1) {
         //document.getElementById('PROBLEM_TEXT').innerText = "Thank you, Ted. " + score;
+        resultsText.innerText = "Nice job!";
         score++;
         document.getElementById('optionContainer').remove();
         updateCircles(score);
         setQuestion();
     }
+    else {
+        resultsText.innerText = "You did it! Head back to the home page to do some more problems!";
+        if (score < questionAmount) {
+            score++;
+        }
+        updateCircles(score);
+        const runningScore = localStorage.getItem(topic);
+        if (runningScore != null) {
+            localStorage.setItem(topic, Number(localStorage.getItem(topic)) + 1);
+        }
+        else {
+            localStorage.setItem(topic, 1);
+        }
+    }
+    
+    resultsContainer.appendChild(resultsText);
 }
 
 //update circles to show n filled in circles
@@ -99,6 +128,7 @@ function updateCircles(n) {
         }
     }
 }
+
 
 setQuestion()
 updateCircles(0);
