@@ -67,6 +67,16 @@ td {
     display: block;
 }
 
+.problem_text3 {
+    background-color: white;
+    text-align: center;
+    margin: auto;
+    width: 400px;
+    border: 3px solid black;
+    border-radius: 10px;
+    display: block;
+}
+
 /* input { 
      transform: scale(2); 
  } */
@@ -122,9 +132,34 @@ button.help:active {
     height: auto;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 10px;
-    display:block;
+    margin-top: 10px;   
     padding: 0px;
     border: 3px solid black;
     border-radius: 10px;
+}
+
+/* .variables {
+    display: grid;
+} */
+
+.var1 {
+  padding: 0px;
+  font-size: 20px;
+  text-align: center;
+  /*width: 100px;*/
+  display: inline;
+}
+.block {
+    display: block;
+}
+
+.inline {
+    display: inline;
+    width: 100px;
+}
+
+.anchor:nth-child(3)::before {
+    content: "";
+    display: block;
+    margin-left: 10px;
 }

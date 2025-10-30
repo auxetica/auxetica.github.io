@@ -16,6 +16,15 @@ const submitButton = document.getElementById('submit');
 const quizContainer = document.getElementById('quiz');
 const resultsContainer = document.getElementById('results');
 
+var stars;
+const starText = document.getElementById("starText");
+if (localStorage.getItem(topic) == 0) {stars = "";}
+else if (localStorage.getItem(topic) == 1) {stars = "⭐";}
+else if (localStorage.getItem(topic) == 2) {stars = "⭐⭐";}
+else if (localStorage.getItem(topic) >= 3) {stars = "[⭐⭐⭐]";}
+else {stars = "";}
+starText.innerText = stars;
+
 //returns array of random numbers from [0, upperBound] with length n
 function getRandom (n, upperBound) {
     let randomNumbers = [];

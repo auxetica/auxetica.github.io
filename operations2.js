@@ -3,10 +3,10 @@ var score = 0;
 var answer;
 const questionAmount = 5;
 const answerAmount = 4;
-const topic = "var1";
-const textThatHelps = "Variables are letters that represent a value in an equation.";
-const textThatHelps2 = "We have an equation that adds a number to x, our variable, to get another number.";
-const textThatHelps3 = "What number could replace x in the equation so that the equation is true?";
+const topic = "operations2";
+const textThatHelps = "Remember the order of operations: PEMDAS.";
+const textThatHelps2 = "This stands for Parantheses, Exponents, Multiplication, Division, Addition, and Subtraction.";
+const textThatHelps3 = "Evaluate everything in parantheses first. Then, move on to multiplication and find the product.";
 
 //graphics
 var blueCircle = "./data/bluecircle100.png";
@@ -51,10 +51,13 @@ function getRandom (n, upperBound, avoidNum) {
 function setQuestion() {
     const num1 = Math.floor(Math.random() * 10);
     const num2 = Math.floor(Math.random() * 10);
+    const num3 = Math.floor(Math.random() * 10);
+    const num4 = Math.floor(Math.random() * 10);
+    const num5 = Math.floor(Math.random() * 10);
     const correctAnswerNum = Math.floor(Math.random() * (answerAmount-1));
-    answer = num2-num1;
-    var optionArray = getRandom(answerAmount, 10, answer);
-    document.getElementById('PROBLEM_TEXT').innerText = num1 + "+x=" + num2;
+    answer = (num1-num2)*num3+(num4+num5);
+    var optionArray = getRandom(answerAmount, 20, answer);
+    document.getElementById('PROBLEM_TEXT').innerText = "(" + num1 + "-" + num2 + ")*" + num3 + "+(" + num4 + "+" + num5 + ")";
     const optionContainer = document.createElement("div");
     const optionRow1 = document.createElement("div");
     const optionRow2 = document.createElement("div");
@@ -95,7 +98,6 @@ function checkAnswer() {
     if (document.getElementById("resultsText") != null) {document.getElementById("resultsText").remove();}
 
     if (userAnswer != answer && score != questionAmount){
-        //document.getElementById('PROBLEM_TEXT').innerText = "I hate you. Forever. " + score;
         resultsText.innerText = "Not quite. Try again!";
         if (score > 0){
             score--;
@@ -103,7 +105,6 @@ function checkAnswer() {
         updateCircles(score);
     }
     else if (userAnswer == answer && score < questionAmount - 1) {
-        //document.getElementById('PROBLEM_TEXT').innerText = "Thank you, Ted. " + score;
         resultsText.innerText = "Nice job!";
         score++;
         document.getElementById('optionContainer').remove();
