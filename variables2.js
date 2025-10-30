@@ -3,10 +3,10 @@ var score = 0;
 var answer;
 const questionAmount = 5;
 const answerAmount = 4;
-const topic = "var1";
-const textThatHelps = "Variables are letters that represent a value in an equation.";
-const textThatHelps2 = "We have an equation that adds a number to x, our variable, to get another number.";
-const textThatHelps3 = "What number could replace x in the equation so that the equation is true?";
+const topic = "var2";
+const textThatHelps = "The variable x represents a value in this equation that we have to solve for.";
+const textThatHelps2 = "Remember that you can add, subtract, multiply, or divide by the same value on both sides of an equation.";
+const textThatHelps3 = "How can we do these things so that we isolate x on one side of the equation?";
 
 //graphics
 var blueCircle = "./data/bluecircle100.png";
@@ -38,14 +38,27 @@ function getRandom (n, upperBound, avoidNum) {
     }
     return randomNumbers;
 }
+function getRandomFractions (n, upperBound, avoidNum) {
+    let randomNumbers = [];
+    while (randomNumbers.length < n) {
+        let rand = (Math.floor(Math.random() * (upperBound-1))) * Math.floor(Math.random() - 0.5);
+        let rand2 = (Math.floor(Math.random() * (upperBound-1))) * Math.floor(Math.random() - 0.5);
+        if (!randomNumbers.includes(rand) && rand!=avoidNum && rand2!=avoidNum){
+            randomNumbers.push(rand.toString() + "/" + rand2.toString());
+        }
+    }
+    return randomNumbers;
+}
 
 function setQuestion() {
     const num1 = Math.floor(Math.random() * 10);
     const num2 = Math.floor(Math.random() * 10);
+    const num3 = Math.floor(Math.random() * 10);
+    const num4 = getRandom(1, 10, num2)[0];
     const correctAnswerNum = Math.floor(Math.random() * (answerAmount-1));
-    answer = num2-num1;
-    var optionArray = getRandom(answerAmount, 10, answer);
-    document.getElementById('PROBLEM_TEXT').innerText = num1 + "+x=" + num2;
+    answer = (num1-num3).toString() + "/" + (num4-num2).toString();
+    var optionArray = getRandomFractions(answerAmount, 10, 0);
+    document.getElementById('PROBLEM_TEXT').innerText = num1 + "x+" + num2 + "=" + num3 + "x+" + num4;
     const optionContainer = document.createElement("div");
     const optionRow1 = document.createElement("div");
     const optionRow2 = document.createElement("div");
