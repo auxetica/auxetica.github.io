@@ -136,6 +136,7 @@ button.help:active {
     padding: 0px;
     border: 3px solid black;
     border-radius: 10px;
+    box-shadow: 0px 5px 0px black;
 }
 
 /* .variables {
@@ -162,4 +163,5 @@ button.help:active {
     content: "";
     display: block;
     margin-left: 10px;
+
 }
